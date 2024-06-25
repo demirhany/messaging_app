@@ -8,6 +8,7 @@ import org.spring_app.messaging_app.repository.UserRepository;
 import org.spring_app.messaging_app.service.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -42,6 +43,11 @@ public class SecurityConfig {
                                                    AuthenticationProvider authenticationProvider) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/authentication/login", "/api/authentication/register").permitAll()
+                        .requestMatchers("/auth/register").permitAll()
+
+                        //static
+                        .requestMatchers(HttpMethod.GET, "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement((sessionManagement) ->
