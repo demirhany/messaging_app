@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.spring_app.messaging_app.entity.Role;
 import org.spring_app.messaging_app.entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +18,7 @@ public class UserDto {
     private Long id;
     private String nick;
     private String email;
-    private List<String> roles;
+    private List<String> roles = new ArrayList<>();
 
     public UserDto(User user) {
         this.id = user.getId();
