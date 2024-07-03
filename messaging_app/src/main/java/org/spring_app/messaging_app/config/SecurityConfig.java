@@ -1,6 +1,5 @@
 package org.spring_app.messaging_app.config;
 
-import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.spring_app.messaging_app.aspect.JwtAuthenticationFilter;
@@ -33,7 +32,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(
-                username)
+                        username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
@@ -44,14 +43,14 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authentication/login", "/api/authentication/register").permitAll()
-                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
 
                         //static
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement((sessionManagement) ->
-                    sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider);
         http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> {
@@ -63,7 +62,7 @@ public class SecurityConfig {
                         }
                 ));
         JwtAuthenticationFilter jwtSecurityFilter = new JwtAuthenticationFilter(jwtService, userDetailsService);
-        http.addFilterBefore((Filter) jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

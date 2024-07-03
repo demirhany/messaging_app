@@ -13,4 +13,9 @@ public class AuthenticationController {
     public String register() {
         return "auth/register";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "auth/login";
+    }
 }
