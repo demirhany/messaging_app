@@ -3,8 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1 class="display-2 mb-2 mt-2">Login</h1>
+            <div id="error-viewer" hidden="hidden" class="alert alert-danger mb-4" role="alert"></div>
+            <div id="success-viewer" hidden="hidden" class="alert alert-success" role="alert"></div>
+            <form onsubmit="submitLogin()">
+                <div class="input-group mb-4">
+                    <span class="input-group-text">Email:</span>
+                    <input type="text" id="email" name="email" aria-label="email"
+                           aria-describedby="basic-addon1" class="form-control" required>
+                </div>
+                <div class="input-group mb-4">
+                    <span class="input-group-text">Password:</span>
+                    <input type="password" id="password" name="password" aria-label="password"
+                           aria-describedby="basic-addon1" class="form-control" required>
+                </div>
+                <input type="submit" value="Login" class="btn btn-primary input-group mb-4">
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<script>
+    function submitLogin() {
+        event.preventDefault();
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
 
+        let data = {
+            email: email,
+            password: password
+        };
+
+        fetch('/api/authentication/login', {
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })  .then(async response => {
+                if (response.ok) {
+                    showSuccess('Login successful!');
+                }
+                else {
+                    let resBody = await response.text();
+                    showError('Login failed ' + response.status + ' ' + resBody);
+                }
+            })
+            .catch(error => {
+                showError('Error: ' + error);
+                console.error('Error:', error);
+            });
+    }
+    function showError(message) {
+        document.getElementById('error-viewer').hidden = false;
+        document.getElementById('error-viewer').innerText = message;
+    }
+
+    function showSuccess(message) {
+        document.getElementById('success-viewer').hidden = false;
+        document.getElementById('success-viewer').innerText = message;
+    }
+</script>
 </body>
 </html>
