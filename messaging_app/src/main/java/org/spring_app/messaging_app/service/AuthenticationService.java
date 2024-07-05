@@ -1,5 +1,6 @@
 package org.spring_app.messaging_app.service;
 
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.spring_app.messaging_app.dto.AuthenticationRequest;
 import org.spring_app.messaging_app.dto.AuthenticationResponse;
@@ -47,8 +48,15 @@ public class AuthenticationService {
         );
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user.getUsername());
+
+        Cookie cookie = new Cookie("jwtToken", jwtToken);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(1000 * 60 * 60 * 24 * 10);
+        cookie.setAttribute("SameSite", "Lax");
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .cookie(cookie)
                 .build();
     }
 
