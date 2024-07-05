@@ -1,5 +1,6 @@
 package org.spring_app.messaging_app.config;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.spring_app.messaging_app.aspect.JwtAuthenticationFilter;
@@ -52,6 +53,12 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider);
+        http
+                .logout((logout) ->
+                        logout
+                                .logoutSuccessUrl("/auth/login")
+                                .logoutUrl("/api/authentication/logout")
+                                .deleteCookies("jwtToken"));
         http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> {
                             if (request.getHeader("Authorization") == null) {
