@@ -7,6 +7,7 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div th:insert="components/header :: header"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
@@ -73,11 +74,13 @@
             });
     }
     function showError(message) {
+        document.getElementById('error-viewer').hidden = true;
         document.getElementById('error-viewer').hidden = false;
         document.getElementById('error-viewer').innerText = message;
     }
 
     function showSuccess(message) {
+        document.getElementById('error-viewer').hidden = true;
         document.getElementById('success-viewer').hidden = false;
         document.getElementById('success-viewer').innerText = message;
     }

@@ -46,6 +46,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/authentication/login", "/api/authentication/register").permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
 
+                        .requestMatchers("/").permitAll()
+
                         //static
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
@@ -57,8 +59,9 @@ public class SecurityConfig {
                 .logout((logout) ->
                         logout
                                 .logoutSuccessUrl("/auth/login")
-                                .logoutUrl("/api/authentication/logout")
-                                .deleteCookies("jwtToken"));
+                                .logoutUrl("/auth/logout")
+                                .deleteCookies("jwtToken")
+                );
         http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> {
                             if (request.getHeader("Authorization") == null) {

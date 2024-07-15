@@ -8,10 +8,7 @@ import org.spring_app.messaging_app.dto.UserCreateRequest;
 import org.spring_app.messaging_app.dto.UserDto;
 import org.spring_app.messaging_app.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,8 +28,8 @@ public class AuthenticationRestController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @PostMapping("/logout")
-    public String logout() {
-        return "redirect:/auth/login";
+    @GetMapping("/isAuth")
+    public ResponseEntity<String> isAuth() {
+        return ResponseEntity.ok("");
     }
 }

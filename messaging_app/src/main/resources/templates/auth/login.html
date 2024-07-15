@@ -5,8 +5,10 @@
     <title>Title</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/app.js"></script>
 </head>
 <body>
+<div th:insert="components/header :: header"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
@@ -51,6 +53,8 @@
         })  .then(async response => {
                 if (response.ok) {
                     showSuccess('Login successful!');
+                    await delay(3000);
+                    location.replace("/auth/httponly");
                 }
                 else {
                     let resBody = await response.text();
