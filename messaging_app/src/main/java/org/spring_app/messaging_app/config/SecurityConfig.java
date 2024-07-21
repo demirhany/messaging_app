@@ -1,6 +1,5 @@
 package org.spring_app.messaging_app.config;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.spring_app.messaging_app.aspect.JwtAuthenticationFilter;
