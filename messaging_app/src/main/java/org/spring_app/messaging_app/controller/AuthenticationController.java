@@ -20,9 +20,9 @@ public class AuthenticationController {
         return "auth/login";
     }
 
-    @GetMapping("/httponly")
+    @GetMapping("/chat")
     public String httponly() {
-        return "auth/httponly";
+        return "auth/chat";
     }
 
     @PostMapping("/logout")

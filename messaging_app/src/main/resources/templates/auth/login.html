@@ -54,7 +54,7 @@
                 if (response.ok) {
                     showSuccess('Login successful!');
                     await delay(3000);
-                    location.replace("/auth/httponly");
+                    location.replace("/auth/chat");
                 }
                 else {
                     let resBody = await response.text();
