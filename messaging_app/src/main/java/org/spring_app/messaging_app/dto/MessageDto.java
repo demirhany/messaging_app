@@ -21,6 +21,6 @@ public class MessageDto {
         this.id = message.getId();
         this.content = message.getContent();
         this.date = message.getDate().toString();
-        this.user = message.getUser().getNick();
+        this.user = message.getSender().getNick();
     }
 }
