@@ -52,11 +52,13 @@ public class AuthenticationService {
         Cookie cookie = new Cookie("jwtToken", jwtToken);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(1000 * 60 * 60 * 24 * 10);
+        cookie.setMaxAge(24 * 60 * 60 * 7);
         cookie.setAttribute("SameSite", "Lax");
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .cookie(cookie)
+                .nick(user.getNick())
                 .build();
     }
 

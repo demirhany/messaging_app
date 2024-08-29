@@ -2,10 +2,7 @@ package org.spring_app.messaging_app.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.spring_app.messaging_app.dto.AuthenticationRequest;
-import org.spring_app.messaging_app.dto.AuthenticationResponse;
-import org.spring_app.messaging_app.dto.UserCreateRequest;
-import org.spring_app.messaging_app.dto.UserDto;
+import org.spring_app.messaging_app.dto.*;
 import org.spring_app.messaging_app.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

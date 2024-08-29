@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -33,8 +33,15 @@
     </div>
 </div>
 <div class="members" id="members_list">
-    <p>Members List:</p>
-    <ul id="users_list"></ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Send Message</th>
+        </tr>
+        </thead>
+        <tbody id="users_list"></tbody>
+    </table>
 </div>
 <div class="messages" id="message_list">
     <p>Messages List:</p>
@@ -51,6 +58,49 @@
 </div>
 </body>
 <script>
+    function getUsers() {
+        let users_list_element = document.getElementById("users_list");
+        let userOwnNick = localStorage.getItem("nick");
+        fetch("/api/user/users", {
+            method: "GET", // Replace with your desired method (e.g., POST, PUT, DELETE)
+            headers: {
+                "Content-Type": "application/json", // Set appropriate content type
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error ${response.status}`);
+                } else {
+                    return response.json(); // Parse the response as JSON
+                }
+            })
+            .then(data => {
+                data.forEach(user => {
+                    if (user.nick === userOwnNick) {
+                       console.log("user nick equals your own nick.");
+                    } else {
+                        let row = document.createElement("tr");
+                        row.innerHTML = `
+                        <td>${user.nick}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="sendMessageToUser('${user.nick}')">Send Message to ${user.nick}</button>
+                        </td>
+                    `;
+                        users_list_element.appendChild(row);
+                    }
+                });
+                // Handle the JSON data here
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
 
+    getUsers();
+
+    function sendMessageToUser(nick) {
+        console.log(nick);
+    }
 </script>
 </html>

@@ -70,6 +70,7 @@
             }).then(async response => {
                 if (response.ok) {
                     localStorage.removeItem('authentication');
+                    localStorage.removeItem("nick");
                     await delay(500);
                     location.replace("/auth/login");
                 }
