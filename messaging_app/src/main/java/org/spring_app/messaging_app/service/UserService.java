@@ -1,7 +1,10 @@
 package org.spring_app.messaging_app.service;
 
+import jakarta.servlet.http.Cookie;
 import lombok.AllArgsConstructor;
+import org.spring_app.messaging_app.dto.AuthenticationRequest;
 import org.spring_app.messaging_app.dto.UserDto;
+import org.spring_app.messaging_app.dto.UserGetRequest;
 import org.spring_app.messaging_app.entity.User;
 import org.spring_app.messaging_app.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -14,11 +17,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<UserDto> getAllUsers() {
-        return userRepository.findAll().stream().map(UserDto::new).toList();
+    public List<UserGetRequest> getAllUsers() {
+        return userRepository.findAll().stream().map(UserGetRequest::new).toList();
     }
 
-    public Optional<User> getUser(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserDto> getUserByNick(String nick) {
+        return userRepository.findByNick(nick).map(UserDto::new);
     }
 }
