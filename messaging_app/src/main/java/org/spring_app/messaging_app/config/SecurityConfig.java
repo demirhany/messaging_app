@@ -60,7 +60,7 @@ public class SecurityConfig {
                         logout
                                 .logoutSuccessUrl("/auth/login")
                                 .logoutUrl("/auth/logout")
-                                .deleteCookies("jwtToken")
+                                .deleteCookies("jwtToken", "JSESSIONID")
                 );
         http.exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
                 httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> {
