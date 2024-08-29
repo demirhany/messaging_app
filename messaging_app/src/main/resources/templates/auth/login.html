@@ -52,9 +52,11 @@
             body: JSON.stringify(data)
         })  .then(async response => {
                 if (response.ok) {
+                    let res_json = await response.json();
+                    localStorage.setItem("nick", res_json.nick);
                     showSuccess('Login successful!');
                     await delay(3000);
-                    location.replace("/auth/httponly");
+                    location.replace("/chat/index");
                 }
                 else {
                     let resBody = await response.text();
