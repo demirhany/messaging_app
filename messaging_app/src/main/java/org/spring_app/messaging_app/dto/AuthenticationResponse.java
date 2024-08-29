@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
     private String token;
     private Cookie cookie;
+    private String nick;
 }
