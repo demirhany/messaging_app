@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/app.js"></script>
+</head>
+<body>
+<div th:insert="components/header :: header"></div>
+
+<div class="username">
+    <div class="row">
+        <h3>WebSocket connection:</h3>
+        <form id="websocket_form">
+            <div class="row">
+                <p>Username: <span id="username"></span></p>
+                <button id="connect" type="submit" disabled="disabled">Connect</button>
+                <button id="disconnect" type="submit" disabled="disabled">Disconnect</button>
+            </div>
+        </form>
+        <div id="online" style="display: inline-block"></div>
+        <div id="send_message">
+            <form id="form_send_message">
+                <div>
+                    <label id="message_label" class="row" for="send">Send a public message:</label>
+                    <input type="text" id="input_send_message" placeholder="Type your message here...">
+                    <button id="send" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="members" id="members_list">
+    <p>Members List:</p>
+    <ul id="users_list"></ul>
+</div>
+<div class="messages" id="message_list">
+    <p>Messages List:</p>
+    <div id="conversation">
+        <table>
+            <thead>
+            <tr>
+                <th>Messages:</th>
+            </tr>
+            </thead>
+            <tbody id="messages_list"></tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

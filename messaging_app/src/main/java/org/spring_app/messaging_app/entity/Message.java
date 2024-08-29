@@ -18,20 +18,19 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String content;
+    private String content;
 
     @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private User sender;
 
     @ManyToOne
     @JoinColumn(name = "chat_id", referencedColumnName = "id")
     private Chat chat;
 
-    @OneToMany
-    @JoinColumn(name = "messageReceivedUserBridge_id", referencedColumnName = "id")
-    private List<Message> messages;
+    @OneToMany(mappedBy = "message")
+    private List<MessageReceivedUserBridge> receivedMessages;
 }
