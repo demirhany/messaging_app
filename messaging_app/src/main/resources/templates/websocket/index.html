@@ -68,5 +68,37 @@
     }
 
     getUsers();
+
+    function openMessageForm(nick) {
+        let message_form_parent = document.getElementById("message_form_parent");
+        let message_form = document.createElement("div");
+        message_form.setAttribute("class", "row");
+        message_form.innerHTML = `
+                <div class="float-end">
+                    <div class="fs-3 text-decoration-underline float-end">${nick}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="messages" class="row">
+                    <ul>
+                        <li>Message 1</li>
+                        <li>Message 2</li>
+                        <li>Message 3</li>
+                        <li>Message 4</li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <form class="form-control" id="message_form">
+                        <label for="message_input" class="col-form-label">Your message</label>
+                        <input type="text" id="message_input" class="input-group mb-2">
+                        <button type="submit" class="btn btn-primary" onclick="sendMessageToUser('${nick}')">Send</button>
+                        <button type="button" class="btn btn-warning my-2" onclick="getMessagesFromUser('${nick}')">Get</button>
+                    </form>
+                </div>
+        `
+        message_form_parent.appendChild(message_form);
+        console.log(nick);
+    }
+
 </script>
 </html>
