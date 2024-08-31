@@ -100,5 +100,25 @@
         console.log(nick);
     }
 
+    function sendMessageToUser(nick) {
+        event.preventDefault();
+        // Get the value of the input element
+        const messageInput = document.getElementById("message_input").value;
+        sendMessage(nick, messageInput);
+
+        document.getElementById("message_input").value = "";
+    }
+
+    function sendMessage(nick, message_input) {
+        const ownNick = localStorage.getItem("nick");
+        const message_date = new Date().toDateString();
+        const message_time = new Date().toTimeString();
+        console.log(message_input + " is sending to " + nick + " from " + ownNick + " date: " + message_date + " time: " + message_time);
+    }
+
+    function getMessagesFromUser(nick) {
+        console.log("Getting messages from " + nick);
+    }
+
 </script>
 </html>
