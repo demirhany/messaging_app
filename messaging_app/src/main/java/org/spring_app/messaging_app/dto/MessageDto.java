@@ -15,12 +15,12 @@ public class MessageDto {
     private Long id;
     private String content;
     private String date;
-    private String user;
+    private String sender;
 
     public MessageDto(Message message) {
         this.id = message.getId();
         this.content = message.getContent();
         this.date = message.getDate().toString();
-        this.user = message.getSender().getNick();
+        this.sender = message.getSender().getNick();
     }
 }

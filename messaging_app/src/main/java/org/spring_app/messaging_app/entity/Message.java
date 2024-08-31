@@ -30,7 +30,4 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "chat_id", referencedColumnName = "id")
     private Chat chat;
-
-    @OneToMany(mappedBy = "message")
-    private List<MessageReceivedUserBridge> receivedMessages;
 }
