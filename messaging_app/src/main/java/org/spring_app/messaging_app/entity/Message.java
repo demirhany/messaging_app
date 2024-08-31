@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +19,7 @@ public class Message {
 
     private String content;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    private Timestamp date;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
