@@ -1,59 +1,29 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/app.js"></script>
 </head>
 <body>
 <div th:insert="components/header :: header"></div>
-
-<div class="username">
-    <div class="row">
-        <h3>WebSocket connection:</h3>
-        <form id="websocket_form">
-            <div class="row">
-                <p>Username: <span id="username"></span></p>
-                <button id="connect" type="submit" disabled="disabled">Connect</button>
-                <button id="disconnect" type="submit" disabled="disabled">Disconnect</button>
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="members" id="members_list">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Send Message</th>
+                    </tr>
+                    </thead>
+                    <tbody id="users_list"></tbody>
+                </table>
             </div>
-        </form>
-        <div id="online" style="display: inline-block"></div>
-        <div id="send_message">
-            <form id="form_send_message">
-                <div>
-                    <label id="message_label" class="row" for="send">Send a public message:</label>
-                    <input type="text" id="input_send_message" placeholder="Type your message here...">
-                    <button id="send" type="submit">Send</button>
-                </div>
-            </form>
         </div>
-    </div>
-</div>
-<div class="members" id="members_list">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Send Message</th>
-        </tr>
-        </thead>
-        <tbody id="users_list"></tbody>
-    </table>
-</div>
-<div class="messages" id="message_list">
-    <p>Messages List:</p>
-    <div id="conversation">
-        <table>
-            <thead>
-            <tr>
-                <th>Messages:</th>
-            </tr>
-            </thead>
-            <tbody id="messages_list"></tbody>
-        </table>
+        <div class="col-6" id="message_form_parent"></div>
     </div>
 </div>
 </body>
@@ -62,28 +32,28 @@
         let users_list_element = document.getElementById("users_list");
         let userOwnNick = localStorage.getItem("nick");
         fetch("/api/user/users", {
-            method: "GET", // Replace with your desired method (e.g., POST, PUT, DELETE)
+            method: "GET",
             headers: {
-                "Content-Type": "application/json", // Set appropriate content type
+                "Content-Type": "application/json",
             }
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error ${response.status}`);
                 } else {
-                    return response.json(); // Parse the response as JSON
+                    return response.json();
                 }
             })
             .then(data => {
                 data.forEach(user => {
                     if (user.nick === userOwnNick) {
-                       console.log("user nick equals your own nick.");
+                        console.log("user nick equals your own nick.");
                     } else {
                         let row = document.createElement("tr");
                         row.innerHTML = `
                         <td>${user.nick}</td>
                         <td>
-                            <button class="btn btn-primary" onclick="sendMessageToUser('${user.nick}')">Send Message to ${user.nick}</button>
+                            <button class="btn btn-primary" onclick="openMessageForm('${user.nick}')">Send Message to ${user.nick}</button>
                         </td>
                     `;
                         users_list_element.appendChild(row);
@@ -98,9 +68,5 @@
     }
 
     getUsers();
-
-    function sendMessageToUser(nick) {
-        console.log(nick);
-    }
 </script>
 </html>
