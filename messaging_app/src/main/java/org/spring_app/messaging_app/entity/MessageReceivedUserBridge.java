@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "messageReceivedUserBridge")
 public class MessageReceivedUserBridge {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne
