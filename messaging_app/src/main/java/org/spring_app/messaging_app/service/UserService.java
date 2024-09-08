@@ -21,7 +21,7 @@ public class UserService {
         return userRepository.findAll().stream().map(UserGetRequest::new).toList();
     }
 
-    public Optional<UserDto> getUserByNick(String nick) {
-        return userRepository.findByNick(nick).map(UserDto::new);
+    public User getUserByNick(String nick) {
+        return userRepository.findByNick(nick);
     }
 }
