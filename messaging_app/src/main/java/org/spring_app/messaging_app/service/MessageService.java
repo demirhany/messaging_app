@@ -56,7 +56,7 @@ public class MessageService {
         setMessageDto(messageDtoList, receivedMessages);
         setMessageDto(messageDtoList, sentMessages);
 
-        messageDtoList.sort(Comparator.comparing(MessageDto::getDate)); //sort them by date
+        messageDtoList.sort(Comparator.comparing    (MessageDto::getDate)); //sort them by date
 
         messageDtoList.forEach(m -> {
             System.out.println(

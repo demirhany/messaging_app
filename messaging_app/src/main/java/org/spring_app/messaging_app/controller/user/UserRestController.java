@@ -1,8 +1,7 @@
 package org.spring_app.messaging_app.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import org.spring_app.messaging_app.dto.UserDto;
-import org.spring_app.messaging_app.dto.UserGetRequest;
+import org.spring_app.messaging_app.dto.user.UserGetRequest;
 import org.spring_app.messaging_app.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

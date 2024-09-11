@@ -2,10 +2,10 @@ package org.spring_app.messaging_app.service;
 
 import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
-import org.spring_app.messaging_app.dto.AuthenticationRequest;
-import org.spring_app.messaging_app.dto.AuthenticationResponse;
-import org.spring_app.messaging_app.dto.UserCreateRequest;
-import org.spring_app.messaging_app.dto.UserDto;
+import org.spring_app.messaging_app.dto.auth.AuthenticationRequest;
+import org.spring_app.messaging_app.dto.auth.AuthenticationResponse;
+import org.spring_app.messaging_app.dto.user.UserCreateRequest;
+import org.spring_app.messaging_app.dto.user.UserDto;
 import org.spring_app.messaging_app.entity.Role;
 import org.spring_app.messaging_app.entity.User;
 import org.spring_app.messaging_app.repository.RoleRepository;
