@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.spring_app.messaging_app.entity.Message;
 import org.spring_app.messaging_app.entity.User;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,13 +16,14 @@ import org.spring_app.messaging_app.entity.User;
 public class MessageDto {
     private Long id;
     private String content;
-    private String date;
+    private Timestamp date;
     private String sender;
+    private String receiver;
 
     public MessageDto(Message message) {
         this.id = message.getId();
         this.content = message.getContent();
-        this.date = message.getDate().toString();
+        this.date = message.getDate();
         this.sender = message.getSender().getNick();
     }
 }

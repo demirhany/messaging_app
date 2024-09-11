@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageGetRequest {
-    String receiver;
-    String sender;
+    private String receiver;
+    private String sender;
 }
