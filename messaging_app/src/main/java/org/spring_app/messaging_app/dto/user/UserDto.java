@@ -1,4 +1,4 @@
-package org.spring_app.messaging_app.dto;
+package org.spring_app.messaging_app.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

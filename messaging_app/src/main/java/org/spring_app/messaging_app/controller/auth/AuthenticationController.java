@@ -1,4 +1,4 @@
-package org.spring_app.messaging_app.controller;
+package org.spring_app.messaging_app.controller.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

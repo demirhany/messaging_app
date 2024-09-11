@@ -1,4 +1,4 @@
-package org.spring_app.messaging_app.dto;
+package org.spring_app.messaging_app.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateRequest {
+@NoArgsConstructor
+@Builder
+public class AuthenticationRequest {
     private String email;
     private String password;
-    private String nick;
 }
