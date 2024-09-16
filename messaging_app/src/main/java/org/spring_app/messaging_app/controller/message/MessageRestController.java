@@ -6,6 +6,7 @@ import org.spring_app.messaging_app.dto.message.MessageGetRequest;
 import org.spring_app.messaging_app.dto.message.MessagePostRequest;
 import org.spring_app.messaging_app.repository.UserRepository;
 import org.spring_app.messaging_app.service.MessageService;
+import org.spring_app.messaging_app.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +20,13 @@ import java.util.List;
 public class MessageRestController {
     private final MessageService messageService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @PostMapping("/send")
     public ResponseEntity<MessagePostRequest> sendMessage(@AuthenticationPrincipal UserDetails userDetails,
                                                           @RequestBody MessagePostRequest messagePostRequest) {
-        String sender = userRepository.findByEmail(userDetails.getUsername()).orElseThrow().getNick();
+        String sender = userService.getUserByEmail(userDetails.getUsername()).getNick();
+//        String sender = userRepository.findByEmail(userDetails.getUsername()).orElseThrow().getNick();
         messagePostRequest.setSender(sender);
 
         messageService.saveMessage(messagePostRequest);
@@ -35,7 +38,7 @@ public class MessageRestController {
     public ResponseEntity<List<MessageDto>> getMessages(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestParam("receiver") String receiver) {
-        String sender = userRepository.findByEmail(userDetails.getUsername()).orElseThrow().getNick();
+        String sender = userService.getUserByEmail(userDetails.getUsername()).getNick();
 
         MessageGetRequest messageGetRequest = MessageGetRequest.builder()
                 .sender(sender)

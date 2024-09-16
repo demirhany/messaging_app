@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.spring_app.messaging_app.aspect.JwtAuthenticationFilter;
 import org.spring_app.messaging_app.repository.UserRepository;
 import org.spring_app.messaging_app.service.JwtService;
+import org.spring_app.messaging_app.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
