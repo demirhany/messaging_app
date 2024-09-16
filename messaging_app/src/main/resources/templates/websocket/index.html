@@ -115,7 +115,7 @@
         console.log(message_input + " is sending to " + nick + " from " + ownNick + " date: " + message_date);
 
         let data = {
-            sender: ownNick,
+            sender: null,
             receiver: nick,
             content: message_input,
             date: message_date,
@@ -144,8 +144,22 @@
     }
 
     function getMessagesFromUser(nick) {
-        console.log("Getting messages from " + nick);
-    }
+        const url = `/get?receiver=${encodeURIComponent(nick)}`;
 
+        fetch("/api/message" + url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error ${response.status}`);
+                } else {
+                    console.log("Getting messages from " + nick);
+                    return response.json();
+                }
+            })
+    }
 </script>
 </html>
