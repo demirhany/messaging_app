@@ -23,6 +23,7 @@ import java.util.List;
 public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final RoleRepository roleRepository;
@@ -46,7 +47,8 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+//        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        var user = userService.getUserByEmail(request.getEmail());
         var jwtToken = jwtService.generateToken(user.getUsername());
 
         Cookie cookie = new Cookie("jwtToken", jwtToken);
@@ -68,7 +70,8 @@ public class AuthenticationService {
         } else {
             String jwt = authHeader.substring(7);
             String username = jwtService.extractUsername(jwt);
-            User user = userRepository.findByEmail(username).orElseThrow();
+//            User user = userRepository.findByEmail(username).orElseThrow();
+            User user = userService.getUserByEmail(username);
             return new UserDto(user);
         }
     }

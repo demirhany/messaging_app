@@ -45,6 +45,11 @@ public class MessageService {
         receivedMessageRepository.save(message1);
     }
 
+    public void saveMessage(MessagePostRequest message) {
+        saveSentMessage(message);
+        saveReceivedMessage(message);
+    }
+
     public List<MessageDto> getReceivedMessages(MessageGetRequest messageGetRequest) {
         User sender = userRepository.findByNick(messageGetRequest.getSender());
         User receiver = userRepository.findByNick(messageGetRequest.getReceiver());
@@ -56,12 +61,10 @@ public class MessageService {
         setMessageDto(messageDtoList, receivedMessages);
         setMessageDto(messageDtoList, sentMessages);
 
-        messageDtoList.sort(Comparator.comparing    (MessageDto::getDate)); //sort them by date
+        messageDtoList.sort(Comparator.comparing(MessageDto::getDate)); //sort them by date
 
-        messageDtoList.forEach(m -> {
-            System.out.println(
-                    "sender: " + m.getSender() + " receiver: " + m.getReceiver() + " content: " + m.getContent() + " date: " + m.getDate());
-        });
+        messageDtoList.forEach(m -> System.out.println(
+                "sender: " + m.getSender() + " receiver: " + m.getReceiver() + " content: " + m.getContent() + " date: " + m.getDate()));
         return messageDtoList;
     }
 

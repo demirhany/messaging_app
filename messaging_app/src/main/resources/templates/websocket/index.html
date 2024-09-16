@@ -23,7 +23,8 @@
                 </table>
             </div>
         </div>
-        <div class="col-6" id="message_form_parent"></div>
+        <div class="col-6" id="message_form_parent">
+        </div>
     </div>
 </div>
 </body>
@@ -70,6 +71,9 @@
     getUsers();
 
     function openMessageForm(nick) {
+        if(document.getElementById("messages_list") != null) {
+            document.getElementById("message_form_parent").innerHTML = ``;
+        }
         let message_form_parent = document.getElementById("message_form_parent");
         let message_form = document.createElement("div");
         message_form.setAttribute("class", "row");
@@ -79,13 +83,7 @@
                 </div>
             </div>
             <div class="row">
-                <div id="messages" class="row">
-                    <ul>
-                        <li>Message 1</li>
-                        <li>Message 2</li>
-                        <li>Message 3</li>
-                        <li>Message 4</li>
-                    </ul>
+                <div id="messages_list" class="row mb-2" style="list-style: none">
                 </div>
                 <div class="row">
                     <form class="form-control" id="message_form">
@@ -115,7 +113,7 @@
         console.log(message_input + " is sending to " + nick + " from " + ownNick + " date: " + message_date);
 
         let data = {
-            sender: ownNick,
+            sender: null,
             receiver: nick,
             content: message_input,
             date: message_date,
@@ -144,8 +142,32 @@
     }
 
     function getMessagesFromUser(nick) {
-        console.log("Getting messages from " + nick);
-    }
+        const url = `/get?receiver=${encodeURIComponent(nick)}`;
+        let messagesListElement = document.getElementById("messages_list");
 
+        fetch("/api/message" + url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error ${response.status}`);
+                } else {
+                    console.log("Getting messages from " + nick);
+                    return response.json();
+                }
+            })
+            .then(data => {
+                data.forEach(message => {
+                    let row = document.createElement("li");
+                    row.innerHTML = `
+                        <span class="text-secondary" style="font-weight: bolder">${message.sender}</span> : ${message.content} - <span class="text-primary">date: </span>${message.date}
+                    `;
+                    messagesListElement.appendChild(row);
+                })
+            })
+    }
 </script>
 </html>
