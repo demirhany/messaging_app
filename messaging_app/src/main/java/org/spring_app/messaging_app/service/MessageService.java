@@ -29,17 +29,17 @@ public class MessageService {
                 null,
                 message.getContent(),
                 message.getSqlDate(),
-                userRepository.findByNick(message.getSender()),
+                userRepository.findByNick(message.getSender()).orElseThrow(),
                 null
         );
         messageRepository.save(message1);
     }
 
     public void saveReceivedMessage(MessagePostRequest message) {
-        Message message2 = messageRepository.findByDateAndSender(message.getSqlDate(), userRepository.findByNick(message.getSender()));
+        Message message2 = messageRepository.findByDateAndSender(message.getSqlDate(), userRepository.findByNick(message.getSender()).orElseThrow());
         MessageReceivedUserBridge message1 = new MessageReceivedUserBridge(
                 null,
-                userRepository.findByNick(message.getReceiver()),
+                userRepository.findByNick(message.getReceiver()).orElseThrow(),
                 message2
         );
         receivedMessageRepository.save(message1);
@@ -51,8 +51,8 @@ public class MessageService {
     }
 
     public List<MessageDto> getReceivedMessages(MessageGetRequest messageGetRequest) {
-        User sender = userRepository.findByNick(messageGetRequest.getSender());
-        User receiver = userRepository.findByNick(messageGetRequest.getReceiver());
+        User sender = userRepository.findByNick(messageGetRequest.getSender()).orElseThrow();
+        User receiver = userRepository.findByNick(messageGetRequest.getReceiver()).orElseThrow();
 
         List<MessageDto> messageDtoList = new ArrayList<>();
         List<MessageReceivedUserBridge> sentMessages = receivedMessageRepository.findByReceiverAndSender(sender, receiver);

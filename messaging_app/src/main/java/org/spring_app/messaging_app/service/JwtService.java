@@ -19,8 +19,13 @@ public class JwtService {
     private static final String SECRET_KEY = "6A495159314B78692F7255426778672B34395255736F3134725055435A356B483639395541644D6C75463270586A3730777A45757A734D4F6A48457037547241";
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 10;
 
-    public String extractUsername(String token) {
+    public String extractUsername(String token) throws Exception {
+        try {
         return extractClaim(token, Claims::getSubject);
+
+        } catch (Exception ex) {
+            throw new Exception("Error while extracting username");
+        }
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -42,9 +47,13 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    public boolean isTokenValid(String token, UserDetails userDetails) throws Exception {
+        try {
+            final String username = extractUsername(token);
+            return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        } catch (Exception ex) {
+            throw new Exception("Token is not valid", ex);
+        }
     }
 
     private boolean isTokenExpired(String token) {
