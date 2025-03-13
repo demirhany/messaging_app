@@ -3,7 +3,7 @@ package org.spring_app.messaging_app.config;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.spring_app.messaging_app.aspect.JwtAuthenticationFilter;
+import org.spring_app.messaging_app.filter.JwtAuthenticationFilter;
 import org.spring_app.messaging_app.repository.UserRepository;
 import org.spring_app.messaging_app.service.JwtService;
 import org.spring_app.messaging_app.service.UserService;
